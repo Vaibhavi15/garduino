@@ -14,7 +14,7 @@ def waterPlant():
     sleep(SECONDS_TO_WATER)
     gpio.output(CHANNEL, 1)
 
-while(true):
+while(True):
     now = datetime.datetime.now()
     current_time = now.strftime("%I:%M:%S %p")
     if(current_time == WATERING_TIME):
