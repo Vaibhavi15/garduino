@@ -26,5 +26,5 @@ now = datetime.datetime.now()
 toWater = database.child("toWater").get().val()
 if(toWater == True):
     waterPlant()
-    print("Watered plant at: " + now)
+    print("Watered plant at: " + str(now)[:19])
     database.update({"toWater": False})
