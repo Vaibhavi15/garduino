@@ -27,4 +27,4 @@ toWater = database.child("toWater").get().val()
 if(toWater == True):
     waterPlant()
     print("Watered plant at: " + now)
-    database.child("toWater").update({"toWater": False})
+    database.update({"toWater": False})
