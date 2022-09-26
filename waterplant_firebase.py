@@ -12,6 +12,8 @@ with open('/home/pi/garduino/database_config.json', 'r') as config:
 
 gpio.setmode(gpio.BCM)
 gpio.setup(CHANNEL, gpio.OUT)
+#as the relay is active low, a low input turns the relay on, and a high input turns it off
+gpio.output(CHANNEL, 1) 
 
 firebase = pyrebase.initialize_app(database_config)
 
@@ -22,9 +24,10 @@ def waterPlant():
     sleep(SECONDS_TO_WATER)
     gpio.output(CHANNEL, 1)
 
-now = datetime.datetime.now()
-toWater = database.child("toWater").get().val()
-if(toWater == True):
-    waterPlant()
-    print("Watered plant at: " + str(now)[:19])
-    database.update({"toWater": False})
+while(True):
+    now = datetime.datetime.now()
+    toWater = database.child("toWater").get().val()
+    if(toWater == True):
+        waterPlant()
+        print("Watered plant at: " + now)
+        database.child("toWater").update({"toWater": False})
